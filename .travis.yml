@@ -1,0 +1,20 @@
+language: node_js
+node_js:
+  - "lts/*"
+
+script: commitlint-travis
+
+# non-sudo for a [faster](https://docs.travis-ci.com/user/reference/overview/#Container-based) container-based build.
+sudo: false
+
+git:
+  depth: 2
+  submodules: false
+
+notifications:
+  email: false
+
+cache:
+  yarn: true
+  directories:
+    - "node_modules"
