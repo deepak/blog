@@ -1,0 +1,4 @@
+baseURL = "http://dkannan.com/"
+languageCode = "en-us"
+title = "personal blog of Deepak Kannan"
+theme = "everest"
