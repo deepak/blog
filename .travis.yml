@@ -2,7 +2,16 @@ language: node_js
 node_js:
   - "lts/*"
 
-script: commitlint-travis
+install:
+  - wget -O /tmp/hugo.deb https://github.com/gohugoio/hugo/releases/download/v0.38.2/hugo_0.38.2_Linux-64bit.deb
+  - sudo dpkg -i /tmp/hugo.deb
+  - hugo version
+  - yarn
+  - rm -rf public || exit 0
+
+script:
+  - commitlint-travis
+  - ./bin/prod.sh
 
 # non-sudo for a [faster](https://docs.travis-ci.com/user/reference/overview/#Container-based) container-based build.
 sudo: false
@@ -18,3 +27,14 @@ cache:
   yarn: true
   directories:
     - "node_modules"
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
+  keep-history: false
+  local-dir: public
+  fqdn: dkannan.com
+  target-branch: gh-pages
+  on:
+    branch: master
