@@ -1,0 +1,40 @@
+{{ define "css" }}
+<style media="screen">
+  :root {
+    --font-stack: -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen-Sans,
+    Ubuntu,
+    Cantarell,
+    "Helvetica Neue",
+    sans-serif;
+    --black-color: #333333;
+    --light-blue-color: hsla(180, 100%, 99%, 0.98);
+    --white-color: hsla(0, 0%, 98%, 0.85);
+    --light-brown-color: hsla(37, 47%, 83%, 0.98);
+    --big-size: 72px;
+    --medium-size: 52px;
+    --small-size: 32px;
+    --highlight-color: rgba(247, 195, 72, 0.94);
+  }
+</style>
+{{ end }}
+
+{{ define "main" }}
+<body class="relief">
+  <main role="main">
+    <div class="jumbotron">
+      <div class="container">
+        <h1>HTTP 404: Page not Found 😜 </h1>
+        <h2>
+          You step in the stream,
+          <br>the water has moved on.
+          <br>This page is not here.
+        </h2>
+      </div>
+    </div>
+  </main>
+</body>
+{{ end }}

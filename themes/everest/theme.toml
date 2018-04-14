@@ -10,9 +10,3 @@ min_version = "0.38.2"
 [author]
   name = ""
   homepage = ""
-
-# If porting an existing theme
-[original]
-  name = ""
-  homepage = ""
-  repo = ""

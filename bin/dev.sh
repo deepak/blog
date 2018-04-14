@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-hugo server -D
+hugo server --buildDrafts --buildFuture --stepAnalysis --templateMetrics --templateMetricsHints

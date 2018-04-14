@@ -6,3 +6,6 @@
 
 # macOS
 *.DS_Store
+
+# dev
+/TODO.org

@@ -1,4 +1,19 @@
 baseURL = "http://dkannan.com/"
-languageCode = "en-us"
 title = "personal blog of Deepak Kannan"
+
 theme = "everest"
+
+languageCode = "en-us"
+enableRobotsTXT = "true"
+enableEmoji = "true"
+enableGitInfo = "false"
+
+buildDrafts = "false"
+buildExpired = "false"
+buildFuture = "false"
+
+disableKinds = ["RSS","sitemap","taxonomy","taxonomyTerm","page","section"]
+
+[taxonomies]
+  category = ""
+  tags = ""
