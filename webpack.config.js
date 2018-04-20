@@ -1,52 +1,29 @@
-const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpackMerge = require("webpack-merge");
+const env = require("./utils/build/env");
+const commonConfig = require("./utils/build/webpack.common");
+const bundleAnalyzerConfig = require("./utils/build/addons/bundle-analyzer");
+const WEBPACK_ADDONS = JSON.parse(process.env.WEBPACK_ADDONS || "[]");
 
-module.exports = {
-  entry: './public/index.js',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(html|htm)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-            }
-          },
-          {
-            loader: 'extract-loader'
-          },
-          {
-            loader: 'html-loader',
-            options: {
-              interpolate: 'true',
-              minimize: true
-            }
-          }
-        ]
-      },
-      {
-        test: /\.(svg)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'images/[name]-[hash].[ext]'
-            }
-          }
-        ]
-      }
-    ]
-  },
-  plugins: [
-    new CopyWebpackPlugin([
-      { from:'public/robots.txt' }
-    ])
-  ]
+// WTF: html is not minimized even though option is set.
+// depending on NODE_ENV right now, but fails even when 'true' is hardcoded!!!
+// console.log(JSON.stringify(commonConfig.module.rules[0], null, 2));
+
+const addons = (toLoad) => {
+  const addonMap = {
+    'bundle-analyzer': bundleAnalyzerConfig
+  };
+
+  return toLoad
+    .map(name => addonMap[name])
+    .filter(addon => addon);
 };
+
+module.exports = () => {
+  const mergedConfig = webpackMerge(
+    commonConfig,
+    ...addons(env.WEBPACK_ADDONS)
+  );
+  // console.log(JSON.stringify(mergedConfig, null, 2))
+
+  return mergedConfig;
+}
