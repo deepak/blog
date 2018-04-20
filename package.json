@@ -104,5 +104,10 @@
     "clone": "2.1.2",
     "clone-stats": "1.0.0",
     "replace-ext": "1.0.0"
-  }
+  },
+  "engines": {
+    "node": ">=8.x"
+  },
+  "private": true,
+  "license": "SEE LICENSE IN LICENSE"
 }
