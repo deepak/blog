@@ -16,7 +16,6 @@ script:
 sudo: false
 
 git:
-  depth: 2
   submodules: false
 
 notifications:
