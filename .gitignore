@@ -1,8 +1,12 @@
 # hugo
 /public
 
-# npm for commitlint
+# webpack
+/dist
+
+# npm
 /node_modules
+/yarn-error.log
 
 # macOS
 *.DS_Store

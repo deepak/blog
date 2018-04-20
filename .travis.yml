@@ -7,7 +7,6 @@ install:
   - sudo dpkg -i /tmp/hugo.deb
   - hugo version
   - yarn
-  - rm -rf public || exit 0
 
 script:
   - commitlint-travis
