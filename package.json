@@ -1,12 +1,31 @@
 {
+  "scripts": {
+    "css:unused-rules": "stylelint-find-rules",
+    "css:compression-savings": "css-size ./static/postcss/index.pcss",
+    "css:supported-browsers": "browserslist",
+    "css:supported-features": "autoprefixer --info"
+  },
   "devDependencies": {
     "@commitlint/cli": "^6.1.3",
     "@commitlint/config-conventional": "^6.1.3",
     "@commitlint/travis-cli": "^6.1.3",
+    "autoprefixer": "^8.3.0",
     "copy-webpack-plugin": "^4.5.1",
+    "css-loader": "^0.28.11",
+    "css-size": "4.0.0-rc.4",
+    "cssnano": "^3.10.0",
+    "cssnano-preset-default": "^4.0.0-rc.2",
     "extract-loader": "^2.0.1",
+    "extract-text-webpack-plugin": "4.0.0-beta.0",
     "file-loader": "^1.1.11",
     "html-loader": "^0.5.5",
+    "postcss-loader": "^2.1.4",
+    "style-loader": "^0.21.0",
+    "stylelint": "^9.2.0",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-find-rules": "^1.1.1",
+    "stylelint-no-unsupported-browser-features": "^3.0.0",
+    "stylelint-webpack-plugin": "^0.10.4",
     "webpack": "^4.6.0",
     "webpack-cli": "^2.0.14"
   },

@@ -10,6 +10,7 @@ install:
 
 script:
   - commitlint-travis
+  - ./bin/lint_css.sh
   - ./bin/prod.sh
 
 # non-sudo for a [faster](https://docs.travis-ci.com/user/reference/overview/#Container-based) container-based build.

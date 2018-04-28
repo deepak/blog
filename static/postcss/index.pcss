@@ -1,0 +1,73 @@
+/* FONTS */
+
+@import url('https://fonts.googleapis.com/css?family=Quicksand:300');
+
+/* VARIABLES */
+
+:root {
+  --font-stack: 'Quicksand', sans-serif;
+  --black-color: #333;
+  --light-blue-color: hsla(180, 100%, 99%, 0.98);
+  --white-color: hsla(0, 0%, 98%, 0.85);
+  --light-brown-color: hsla(37, 47%, 83%, 0.98);
+  --big-size: 72px;
+  --medium-size: 52px;
+  --small-size: 32px;
+  --highlight-color: rgba(247, 195, 72, 0.94);
+}
+
+/* CSS RESET */
+
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+/* PAGE CSS */
+
+body {
+  font-family: var(--font-stack);
+  color: var(--black-color);
+}
+
+html {
+  min-height: 100%;
+}
+
+.relief {
+  background:
+    linear-gradient(
+      var(--light-blue-color),
+      var(--white-color),
+      var(--light-brown-color)
+    ),
+    url("../images/topography.svg");
+}
+
+.jumbotron h1 {
+  text-transform: uppercase;
+  font-size: var(--big-size);
+  padding-bottom: 5px;
+  margin-top: 50px;
+  margin-bottom: 40px;
+}
+
+.jumbotron h1::after {
+  content: "";
+  display: block;
+  padding-top: 10px;
+  margin-bottom: 40px;
+  border-bottom: 3px solid var(--highlight-color);
+  width: 100px;
+}
+
+.jumbotron h2 {
+  font-size: var(--medium-size);
+  padding-bottom: 5px;
+}
+
+.jumbotron h3 {
+  font-size: var(--small-size);
+  padding-bottom: 5px;
+}

@@ -1,0 +1,12 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "plugin/no-unsupported-browser-features": [true, {
+      "severity": "warning"
+    }]
+  },
+  "plugins": [
+    "stylelint-no-unsupported-browser-features"
+  ],
+  "defaultSeverity": "error"
+}
