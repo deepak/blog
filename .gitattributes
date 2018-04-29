@@ -1,0 +1,5 @@
+# hugo & webpack
+/public/* linguist-generated=true
+
+# npm
+/yarn.lock linguist-generated=true
