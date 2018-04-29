@@ -12,4 +12,5 @@
 *.DS_Store
 
 # dev
-/TODO.org
+/*.org
+/*.log
