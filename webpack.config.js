@@ -1,21 +1,26 @@
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const extractCSS = new ExtractTextPlugin('css/index.css');
+const extractCSS = new ExtractTextPlugin('css/[name]-[md5:contenthash:hex].css');
+const ManifestPlugin = require('webpack-manifest-plugin');
+const CleanEntryPlugin = require('clean-entry-webpack-plugin');
 
 const GLOBS = {
-  HTML_EXTENSION: /\.(html|htm)$/,
   SVG_EXTENSION: /\.(svg)$/,
   POSTCSS_EXTENSION: /\.pcss$/,
   ALL_POSTCSS: '**/*.pcss'
 };
 
-const DEFAULT_RULE = {
-  exclude: /node_modules/,
+const PATHS = {
+  static: path.resolve(__dirname, 'static'),
+  manifest: path.join(path.resolve(__dirname, 'data'), 'manifest.json')
 };
 
 function buildRule(rule) {
+  const DEFAULT_RULE = {
+    exclude: /node_modules/,
+  };
+
   return Object.assign({},
     DEFAULT_RULE,
     rule
@@ -23,34 +28,16 @@ function buildRule(rule) {
 }
 
 module.exports = {
-  entry: './public/index.js',
+  entry: {
+    main: './src/postcss/index.pcss'
+  },
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js',
+    path: PATHS.static,
     publicPath: '/'
   },
   module: {
     rules: [
-      buildRule({
-        test: GLOBS.HTML_EXTENSION,
-        use: [{
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-            }
-          },
-          {
-            loader: 'extract-loader'
-          },
-          {
-            loader: 'html-loader',
-            options: {
-              interpolate: 'true',
-              minimize: true
-            }
-          }
-        ]
-      }),
       buildRule({
         test: GLOBS.POSTCSS_EXTENSION,
         use: extractCSS.extract({
@@ -76,9 +63,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new CopyWebpackPlugin([{
-      from: 'public/robots.txt'
-    }]),
     new StyleLintPlugin({
       context: './public/postcss',
       files: [GLOBS.ALL_POSTCSS],
@@ -86,6 +70,12 @@ module.exports = {
       failOnError: true,
       quiet: false
     }),
-    extractCSS
+    extractCSS,
+    new CleanEntryPlugin({
+      manifestPath: PATHS.manifest
+    }),
+    new ManifestPlugin({
+      fileName: PATHS.manifest
+    })
   ]
 };

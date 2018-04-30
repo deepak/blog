@@ -1,8 +1,7 @@
-# hugo
+# hugo & webpack generated content
 /public
-
-# webpack
-/dist
+/static
+/data/manifest.json
 
 # npm
 /node_modules
