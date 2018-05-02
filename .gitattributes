@@ -1,7 +1,7 @@
 # hugo & webpack
 /public/* linguist-generated=true
-/static/* linguist-generated=true
-/data/manifest.json linguist-generated=true
+/site/static/* linguist-generated=true
+/site/data/manifest.json linguist-generated=true
 
 # npm
 /yarn.lock linguist-generated=true
