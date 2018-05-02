@@ -3,6 +3,7 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const extractCSS = new ExtractTextPlugin('css/[name]-[md5:contenthash:hex].css');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CleanEntryPlugin = require('clean-entry-webpack-plugin');
 
 const GLOBS = {
@@ -12,8 +13,8 @@ const GLOBS = {
 };
 
 const PATHS = {
-  static: path.resolve(__dirname, 'static'),
-  manifest: path.join(path.resolve(__dirname, 'data'), 'manifest.json')
+  static: path.resolve(__dirname, 'site', 'static'),
+  manifest: path.join(path.resolve(__dirname, 'site', 'data'), 'manifest.json')
 };
 
 function buildRule(rule) {
@@ -71,6 +72,7 @@ module.exports = {
       quiet: false
     }),
     extractCSS,
+    new CleanWebpackPlugin(Object.values(PATHS)),
     new CleanEntryPlugin({
       manifestPath: PATHS.manifest
     }),

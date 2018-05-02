@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
 # --fix
-yarn run stylelint static/postcss/**/*.pcss "$@"
+yarn run stylelint site/static/postcss/**/*.pcss "$@"

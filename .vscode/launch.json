@@ -7,8 +7,16 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch",
+      "name": "Launch Webpack",
       "program": "${workspaceFolder}/node_modules/.bin/webpack-cli",
+      "cwd": "${workspaceRoot}",
+      "console": "internalConsole"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Gulp",
+      "program": "${workspaceFolder}/node_modules/.bin/gulp",
       "cwd": "${workspaceRoot}",
       "console": "internalConsole"
     }
