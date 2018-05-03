@@ -1,7 +1,5 @@
 baseURL = "http://dkannan.com/"
-title = "personal blog of Deepak Kannan"
-
-theme = "everest"
+title = "Deepak Kannan | Programmer"
 
 languageCode = "en-us"
 enableRobotsTXT = "true"

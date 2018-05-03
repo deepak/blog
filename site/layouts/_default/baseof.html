@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  {{ partial "head.html" . }}
+  {{ block "stylesheet" . }}
+  <link rel="stylesheet" type="text/css" media="screen" href='{{ index .Site.Data.manifest "main.css" }}'>
+  {{ end }}
+</head>
+{{ block "main" . }} {{ end }}
+</html>
