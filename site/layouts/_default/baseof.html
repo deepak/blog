@@ -4,7 +4,11 @@
 <head>
   {{ partial "head.html" . }}
   {{ block "stylesheet" . }}
+  {{ if eq (getenv "NODE_ENV") "development" }}
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css">
+  {{ else }}
   <link rel="stylesheet" type="text/css" media="screen" href='{{ index .Site.Data.manifest "main.css" }}'>
+  {{ end }}
   {{ end }}
 </head>
 {{ block "main" . }} {{ end }}

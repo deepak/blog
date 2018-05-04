@@ -31,12 +31,18 @@ const PATHS = {
   site: "site/**/*"
 };
 
+const PRODUCTION_NODE_ENV = "production";
 function getNodeEnv() {
-  return process.env.NODE_ENV || "development";
+  return process.env.NODE_ENV || PRODUCTION_NODE_ENV;
 }
 
 function runWebpack(cb) {
-  const myConfig = Object.assign({}, webpackConfig);
+  const NODE_ENV = getNodeEnv();
+  const webpackEnv = {};
+  const webpackARGV = {
+    "mode": NODE_ENV
+  };
+  const myConfig = webpackConfig(webpackEnv, webpackARGV);
 
   return webpack(myConfig, (err, stats) => {
     if (err) throw new PluginError("webpack", err);
@@ -85,7 +91,7 @@ function buildSite(cb, options = {}) {
 }
 
 function hugo(cb) {
-  const hugoArgs = getNodeEnv() === 'production' ? [] : HUGO.args.preview;
+  const hugoArgs = getNodeEnv() === PRODUCTION_NODE_ENV ? [] : HUGO.args.preview;
   return buildSite(cb, hugoArgs);
 }
 

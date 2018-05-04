@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-yarn run gulp dev-server --continue
+NODE_ENV="development" yarn run gulp dev-server --continue

@@ -1,10 +1,12 @@
 const path = require('path');
+const NoEmitOnErrorsPlugin = require("webpack").NoEmitOnErrorsPlugin;
+const merge = require("webpack-merge");
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const extractCSS = new ExtractTextPlugin('css/[name]-[md5:contenthash:hex].css');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CleanEntryPlugin = require('clean-entry-webpack-plugin');
+const PRODUCTION_NODE_ENV = "production";
 
 const GLOBS = {
   SVG_EXTENSION: /\.(svg)$/,
@@ -28,7 +30,54 @@ function buildRule(rule) {
   );
 }
 
-module.exports = {
+function extractCSS(cssName = '[name]-[md5:contenthash:hex].css') {
+  const cssPlugin = new ExtractTextPlugin(`css/${cssName}`)
+
+  return {
+    module: {
+      rules: [
+        buildRule({
+          test: GLOBS.POSTCSS_EXTENSION,
+          use: cssPlugin.extract({
+            use: [{
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1
+              }
+            }, {
+              loader: 'postcss-loader'
+            }]
+          })
+        })
+      ]
+    },
+    plugins: [
+      cssPlugin
+    ]
+  };
+}
+
+function extractSVG(svgName = '[name]-[hash].svg') {
+  return {
+    module: {
+      rules: [
+        buildRule({
+          test: GLOBS.SVG_EXTENSION,
+          use: [{
+            loader: 'file-loader',
+            options: {
+              name: `images/${svgName}`
+            }
+          }]
+        })
+      ]
+    }
+  }
+}
+
+const commonConfig = {
+  mode: PRODUCTION_NODE_ENV,
+  bail: true,
   entry: {
     main: './src/postcss/index.pcss',
     styleguide: './src/postcss/styleguide.pcss'
@@ -39,32 +88,10 @@ module.exports = {
     publicPath: '/'
   },
   module: {
-    rules: [
-      buildRule({
-        test: GLOBS.POSTCSS_EXTENSION,
-        use: extractCSS.extract({
-          use: [{
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1
-            }
-          }, {
-            loader: 'postcss-loader'
-          }]
-        })
-      }),
-      buildRule({
-        test: GLOBS.SVG_EXTENSION,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            name: 'images/[name]-[hash].[ext]'
-          }
-        }]
-      })
-    ]
+    rules: []
   },
   plugins: [
+    new NoEmitOnErrorsPlugin(),
     new StyleLintPlugin({
       context: './public/postcss',
       files: [GLOBS.ALL_POSTCSS],
@@ -72,8 +99,6 @@ module.exports = {
       failOnError: true,
       quiet: false
     }),
-    extractCSS,
-    new CleanWebpackPlugin(Object.values(PATHS)),
     new CleanEntryPlugin({
       manifestPath: PATHS.manifest
     }),
@@ -81,4 +106,41 @@ module.exports = {
       fileName: PATHS.manifest
     })
   ]
+};
+
+const developmentConfig = merge(
+  {
+    plugins: [
+      new CleanWebpackPlugin([
+        PATHS.static
+      ])
+    ]
+  },
+  extractCSS('[name].css'),
+  extractSVG('[name].svg')
+);
+
+const productionConfig = merge(
+  {
+    plugins: [
+      new CleanWebpackPlugin(Object.values(PATHS))
+    ]
+  },
+  extractCSS(),
+  extractSVG()
+);
+
+module.exports = (env = {}, argv) => {
+  const mode = argv.mode || PRODUCTION_NODE_ENV;
+  // console.log(`[webpack] mode ===> ${mode}`);
+  const mergedConfig = merge.smart(
+    commonConfig,
+    { mode: mode },
+    PRODUCTION_NODE_ENV === mode ?
+      productionConfig :
+      developmentConfig
+  );
+  // TODO: pretty print config https://github.com/lewie9021/webpack-configurator/issues/6
+  // console.log(`[webpack] config ===> ${JSON.stringify(mergedConfig, null, 2)}`);
+  return mergedConfig;
 };

@@ -1,5 +1,9 @@
 {{ define "stylesheet" }}
+{{ if eq (getenv "NODE_ENV") "development" }}
+<link rel="stylesheet" type="text/css" media="screen" href="/css/styleguide.css">
+{{ else }}
 <link rel="stylesheet" type="text/css" media="screen" href='{{ index .Site.Data.manifest "styleguide.css" }}'>
+{{ end }}
 {{ end }}
 
 {{ define "main" }}
