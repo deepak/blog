@@ -30,7 +30,8 @@ function buildRule(rule) {
 
 module.exports = {
   entry: {
-    main: './src/postcss/index.pcss'
+    main: './src/postcss/index.pcss',
+    styleguide: './src/postcss/styleguide.pcss'
   },
   output: {
     filename: '[name].js',

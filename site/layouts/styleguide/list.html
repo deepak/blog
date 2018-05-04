@@ -1,0 +1,24 @@
+{{ define "stylesheet" }}
+<link rel="stylesheet" type="text/css" media="screen" href='{{ index .Site.Data.manifest "styleguide.css" }}'>
+{{ end }}
+
+{{ define "main" }}
+{{ $url := urls.Parse .Site.BaseURL  }}
+<body>
+	<main role="main">
+		<article class="styleguide">
+			<h1 class="styleguide-header" spellcheck="false">Styleguide</h1>
+			<p class="styleguide-description" spellcheck="false">
+				Welcome to the <a href="{{.Site.BaseURL}}">{{$url.Host}}</a> style guide.
+			</p>
+
+			{{ range where .Data.Pages.ByWeight "Type" "styleguide"}}
+			<section class="styleguide-example">
+				<h4 class="styleguide-example-header">{{ .Title }}</h4>
+				{{.Content}}
+			</section>
+			{{ end }}
+		</article>
+	</main>
+</body>
+{{ end }}

@@ -11,7 +11,7 @@ buildDrafts = "false"
 buildExpired = "false"
 buildFuture = "false"
 
-disableKinds = ["RSS","sitemap","taxonomy","taxonomyTerm","page","section"]
+disableKinds = ["RSS","sitemap","taxonomy","taxonomyTerm"]
 
 [taxonomies]
   category = ""

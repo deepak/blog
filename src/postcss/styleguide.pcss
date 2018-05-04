@@ -1,0 +1,87 @@
+/* FONTS */
+
+/*
+  characters required for home page:
+
+  ```ruby
+  require 'erb'
+  chars = "HELLO! I'm Deepak Kannan a programmer, living in Bangalore - India DEEPAK KANNAN dkannan.com".gsub(" ", '').split('').sort.uniq.join('') => "!',-.ABDEHIKLNOPacdegiklmnoprv"
+  ERB::Util.url_encode(chars) => "%21%27%2C-.ABDEHIKLNOPacdegiklmnoprv"
+  ```
+
+  recommended fallbacks:
+
+  font-family: 'Libre Barcode 128 Text', cursive;
+  font-family: 'Quicksand', sans-serif;
+*/
+
+@import url('https://fonts.googleapis.com/css?family=Libre+Barcode+128+Text&text=%21%27%2C-.ABDEHIKLNOPacdegiklmnoprv&subset=latin');
+@import url('https://fonts.googleapis.com/css?family=Quicksand:300&subset=latin');
+
+/* VARIABLES */
+
+:root {
+  --font-stack: 'Quicksand', sans-serif;
+  --black-color: #333;
+  --yellow-color: rgb(247, 195, 72);
+  --gray-color: #e6e6e6;
+  --gray-blue-color: #a1a9aa;
+  --big-size: 62px;
+  --medium-size: 24px;
+  --small-size: 24px;
+}
+
+/* CSS RESET */
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+}
+
+/* PAGE CSS */
+
+body {
+  font-family: var(--font-stack);
+  color: var(--black-color);
+}
+
+/* STYLEGUIDE */
+
+.styleguide {
+  margin: 2rem;
+}
+
+.styleguide-header {
+  padding: 16px 24px;
+  background: var(--black-color);
+  color: var(--yellow-color);
+  font-size: var(--big-size);
+}
+
+.styleguide-description {
+  font-size: var(--medium-size);
+  margin-bottom: 4rem;
+}
+
+.styleguide-example-header {
+  border-bottom: 1px solid var(--gray-color);
+  color: var(--gray-blue-color);
+  padding-bottom: 2px;
+  text-transform: capitalize;
+  font-size: var(--small-size);
+  font-weight: 300;
+  margin-bottom: 2rem;
+}
+
+/* LOGO */
+
+.logo {
+  font-family: 'Libre Barcode 128 Text', cursive;
+  color: var(--black-color);
+  font-size: 55px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 3px;
+}
